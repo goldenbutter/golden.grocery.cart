@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body bg-cream-100 text-forest-900;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-forest-600 text-white px-5 py-2.5 rounded-xl font-body font-medium
+           hover:bg-forest-700 active:scale-95 transition-all duration-150 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-forest-600 text-forest-700 px-5 py-2.5 rounded-xl font-body font-medium
+           hover:bg-forest-50 active:scale-95 transition-all duration-150;
+  }
+
+  .btn-ghost {
+    @apply text-forest-600 px-4 py-2 rounded-lg font-medium hover:bg-forest-50 transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-cream-300 bg-white
+           focus:outline-none focus:ring-2 focus:ring-forest-400 focus:border-transparent
+           font-body text-forest-900 placeholder-forest-300 transition-all;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+/* Smooth page transitions */
+.page-enter {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Cart sidebar */
+.cart-overlay {
+  animation: overlayIn 0.2s ease-out;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.cart-panel {
+  animation: slideIn 0.25s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
