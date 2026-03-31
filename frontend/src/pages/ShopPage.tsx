@@ -10,10 +10,13 @@ export default function ShopPage() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Fetch categories once on mount — they don't change based on search/filter
   useEffect(() => {
     categoriesApi.getAll().then(setCategories).catch(console.error);
   }, []);
 
+  // Re-fetch products whenever the selected category or search term changes
+  // Both filters are sent to the backend — the API handles the actual filtering
   useEffect(() => {
     setLoading(true);
     productsApi.getAll({ categoryId: selectedCategory, search: search || undefined })
@@ -29,7 +32,7 @@ export default function ShopPage() {
         <p className="text-forest-500">Browse our full range of fresh, quality products</p>
       </div>
 
-      {/* Search */}
+      {/* Search input — filters products by name and description via the backend */}
       <div className="relative mb-6 max-w-md">
         <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-forest-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -42,9 +45,10 @@ export default function ShopPage() {
         />
       </div>
 
-      {/* Category pills */}
+      {/* Category filter pills — clicking the same category again deselects it (toggles) */}
       <div className="flex gap-2 flex-wrap mb-8">
         <button
+          type="button"
           onClick={() => setSelectedCategory(undefined)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
             !selectedCategory
@@ -56,6 +60,7 @@ export default function ShopPage() {
         </button>
         {categories.map(cat => (
           <button
+            type="button"
             key={cat.id}
             onClick={() => setSelectedCategory(cat.id === selectedCategory ? undefined : cat.id)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
@@ -69,7 +74,7 @@ export default function ShopPage() {
         ))}
       </div>
 
-      {/* Products grid */}
+      {/* Products grid — shows skeleton cards while loading, empty state if no results */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -80,7 +85,8 @@ export default function ShopPage() {
         <div className="text-center py-24">
           <span className="text-5xl">🔍</span>
           <p className="mt-4 text-forest-500 font-medium">No products found</p>
-          <button onClick={() => { setSearch(''); setSelectedCategory(undefined); }} className="btn-ghost mt-2">
+          {/* Clear filters resets both search and category selection */}
+          <button type="button" onClick={() => { setSearch(''); setSelectedCategory(undefined); }} className="btn-ghost mt-2">
             Clear filters
           </button>
         </div>

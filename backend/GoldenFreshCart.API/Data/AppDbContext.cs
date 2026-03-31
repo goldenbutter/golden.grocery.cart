@@ -55,7 +55,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             new Product { Id = 11, Name = "Atlantic Salmon", Description = "Fresh Atlantic salmon fillets, skin on.", Price = 159.00m, Unit = "kg", Stock = 30, CategoryId = 4, ImageUrl = "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400" },
             new Product { Id = 12, Name = "Orange Juice", Description = "Freshly squeezed 100% pure orange juice, no added sugar.", Price = 49.00m, Unit = "litre", Stock = 75, CategoryId = 5, ImageUrl = "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400" },
             new Product { Id = 13, Name = "Sparkling Water", Description = "Natural sparkling mineral water, lightly carbonated.", Price = 25.00m, Unit = "1.5L", Stock = 110, CategoryId = 5, ImageUrl = "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=400" },
-            new Product { Id = 14, Name = "Mixed Nuts", Description = "Premium roasted and salted mixed nuts blend.", Price = 89.00m, Unit = "250g", Stock = 85, CategoryId = 6, ImageUrl = "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400" },
+            new Product { Id = 14, Name = "Hot Dog", Description = "Classic beef hot dog sausages, ready to grill or boil.", Price = 89.00m, Unit = "6 pack", Stock = 85, CategoryId = 4, ImageUrl = "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400" },
             new Product { Id = 15, Name = "Dark Chocolate", Description = "70% cocoa rich dark chocolate bar.", Price = 39.00m, Unit = "bar", Stock = 95, CategoryId = 6, ImageUrl = "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400" }
         );
 

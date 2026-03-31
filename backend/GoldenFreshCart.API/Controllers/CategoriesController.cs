@@ -5,10 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoldenFreshCart.API.Controllers;
 
+// Public endpoint — no authentication required to browse categories
 [ApiController]
 [Route("api/[controller]")]
 public class CategoriesController(AppDbContext db) : ControllerBase
 {
+    // GET /api/categories
+    // Returns all categories with a count of available products in each
+    // ProductCount only counts products where IsAvailable = true (hidden products are excluded)
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
