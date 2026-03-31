@@ -5,10 +5,8 @@
 ---
 
 <div align="center">
-  <video src="assets/final-output.mp4" width="100%" controls autoplay loop muted></video>
+  <video src="https://github.com/user-attachments/assets/d2ec1712-9a40-4059-918f-c428d90129ec" width="100%" controls autoplay loop muted></video>
 </div>
-
-
 
 ## ✨ Features
 
