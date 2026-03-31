@@ -25,6 +25,12 @@ appsettings.Development.json
 .env.*
 
 # ===========================
+# Claude Code (local only)
+# ===========================
+CLAUDE.md
+.claude/
+
+# ===========================
 # OS
 # ===========================
 .DS_Store

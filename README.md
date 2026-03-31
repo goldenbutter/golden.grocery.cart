@@ -1,27 +1,68 @@
 # 🛒 GoldenFreshCart
 
-A full-stack grocery store application by **Bithun**.
-
-**Stack:** ASP.NET Core 10 · React 19 · TypeScript · Vite · Tailwind CSS · SQLite · JWT Auth
+**A fully functional, production-grade Norwegian grocery store web application** built with a modern full-stack architecture. Features a complete shopping experience from product browsing to order placement, backed by a secure REST API with role-based authentication.
 
 ---
 
-## Prerequisites
+<div align="center">
+  <video src="assets/final-output.mp4" width="100%" controls autoplay loop muted></video>
+</div>
 
+
+
+## ✨ Features
+
+### 🛍️ Customer Experience
+- Browse and search products by category
+- Add to cart with real-time sidebar updates
+- Secure checkout and order placement
+- View full order history and status
+
+### 🔐 Authentication & Security
+- JWT-based authentication with protected routes
+- Role-based access control (Customer / Admin)
+- Secure registration and login system
+
+### 🛠️ Admin Panel
+- Dashboard with live stats (orders, revenue, users, products)
+- Add, edit, delete products (with image, stock, availability)
+- View all customer orders
+- Update order status (Pending → Processing → Delivered)
+
+### 💰 Localized for Norway
+- Prices displayed in Norwegian Krone (kr)
+- Clean, whole-number price formatting
+
+---
+
+## 🧰 Tech Stack
+
+| Layer      | Technology                              |
+|------------|-----------------------------------------|
+| Frontend   | React 19, TypeScript, Vite, Tailwind CSS |
+| Backend    | ASP.NET Core 10 Web API                 |
+| Database   | SQLite via Entity Framework Core        |
+| Auth       | JWT Bearer Tokens                       |
+| State      | Zustand                                 |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Node.js 20+](https://nodejs.org/)
-- [EF Core CLI tools](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
 
-Install EF Core tools if you haven't:
+Install EF Core CLI tools:
 ```bash
 dotnet tool install --global dotnet-ef
 ```
 
+> On Windows, if `dotnet-ef` is not found after install, reopen your terminal or use the full path: `~/.dotnet/tools/dotnet-ef`
+
 ---
 
-## Setup & Run
-
-### 1. Backend
+### Backend
 
 ```bash
 cd backend/GoldenFreshCart.API
@@ -30,14 +71,16 @@ cd backend/GoldenFreshCart.API
 dotnet restore
 
 # Create and seed the database
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+dotnet-ef migrations add InitialCreate
+dotnet-ef database update
 
 # Run the API (http://localhost:5000)
 dotnet run
 ```
 
-### 2. Frontend (new terminal)
+> The database is also auto-created on first `dotnet run` if migrations already exist.
+
+### Frontend
 
 ```bash
 cd frontend
@@ -49,13 +92,14 @@ npm install
 npm run dev
 ```
 
-### 3. Open the app
+### Open the app
 
 Visit: **http://localhost:5173**
 
----
+Both terminals must stay running at the same time.
 
-## Accounts
+
+### Accounts
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -64,27 +108,46 @@ Visit: **http://localhost:5173**
 
 ---
 
-## Features
+## 📸 Screenshots
 
-### Customer
-- Browse 15+ products across 6 categories
-- Search and filter by category
-- Add to cart, adjust quantities
-- Checkout with delivery address
-- View order history and status
+**Landing page**
 
-### Admin (`/admin`)
-- Dashboard with live stats (orders, revenue, users, products)
-- Add, edit, delete products (with image, stock, availability)
-- View all customer orders
-- Update order status (Pending → Processing → Delivered)
+<img alt="Landing Page" src="assets/landing-page.png" style="max-width:100%;" />
+
+**Login page**
+
+<img alt="Login Page" src="assets/login-page.png" style="max-width:100%;" />
+
+**All Products Page**
+
+<img alt="All Products Page" src="assets/all-product-page.png" style="max-width:100%;" />
+
+**Cart**
+
+<img alt="Cart" src="assets/cart.png" style="max-width:100%;" />
+
+**Checkout Page**
+
+<img alt="Checkout Page" src="assets/checkout-page.png" style="max-width:100%;" />
+
+**Order Page**
+
+<img alt="Order Page" src="assets/order-page.png" style="max-width:100%;" />
+
+**Admin Panel Dashboard**
+
+<img alt="Admin Panel Dashboard" src="assets/admin-panel-dashboard.png" style="max-width:100%;" />
+
+**Admin Panel Orders**
+
+<img alt="Admin Panel Orders" src="assets/admin-panel-orders.png" style="max-width:100%;" />
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-grocery.store/
+golden.grocery.cart/
 ├── backend/
 │   └── GoldenFreshCart.API/
 │       ├── Controllers/      # Auth, Products, Categories, Orders
@@ -104,5 +167,15 @@ grocery.store/
 ```
 
 ---
+
+## Author
+
+**Bithun** — Senior Technical Consultant
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 © 2026 Bithun. All rights reserved.
