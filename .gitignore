@@ -22,7 +22,8 @@ dist/
 # ===========================
 appsettings.Development.json
 .env
-.env.*
+.env.development
+.env.production
 
 # ===========================
 # Claude Code (local only)

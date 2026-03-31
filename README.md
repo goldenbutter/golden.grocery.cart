@@ -176,4 +176,4 @@ golden.grocery.cart/
 
 This project is licensed under the [MIT License](LICENSE).
 
-© 2026 Bithun. All rights reserved.
+© 2026 [Bithun](https://github.com/goldenbutter). All rights reserved.
