@@ -108,35 +108,39 @@ Both terminals must stay running at the same time.
 
 ## 📸 Screenshots
 
-**Landing page**
+🧩 **Landing page**
 
 <img alt="Landing Page" src="assets/landing-page.png" style="max-width:100%;" />
 
-**Login page**
+🧩 **Sign-up page**
+
+<img alt="Sign-up Page" src="assets/sign-up-page.png" style="max-width:100%;" />
+
+🧩 **Login page**
 
 <img alt="Login Page" src="assets/login-page.png" style="max-width:100%;" />
 
-**All Products Page**
+🧩 **All Products Page**
 
 <img alt="All Products Page" src="assets/all-product-page.png" style="max-width:100%;" />
 
-**Cart**
+🧩 **Cart**
 
 <img alt="Cart" src="assets/cart.png" style="max-width:100%;" />
 
-**Checkout Page**
+🧩 **Checkout Page**
 
 <img alt="Checkout Page" src="assets/checkout-page.png" style="max-width:100%;" />
 
-**Order Page**
+🧩 **Order Page**
 
 <img alt="Order Page" src="assets/order-page.png" style="max-width:100%;" />
 
-**Admin Panel Dashboard**
+🧩 **Admin Panel Dashboard**
 
 <img alt="Admin Panel Dashboard" src="assets/admin-panel-dashboard.png" style="max-width:100%;" />
 
-**Admin Panel Orders**
+🧩 **Admin Panel Orders**
 
 <img alt="Admin Panel Orders" src="assets/admin-panel-orders.png" style="max-width:100%;" />
 
@@ -146,6 +150,7 @@ Both terminals must stay running at the same time.
 
 ```
 golden.grocery.cart/
+├── netlify.toml              # Netlify build config (base, command, publish dir)
 ├── backend/
 │   └── GoldenFreshCart.API/
 │       ├── Controllers/      # Auth, Products, Categories, Orders
@@ -156,6 +161,10 @@ golden.grocery.cart/
 │       ├── Program.cs
 │       └── appsettings.json
 └── frontend/
+    ├── public/
+    │   └── _redirects        # Netlify SPA redirect rule for React Router
+    ├── .env.development      # Local dev API URL (not committed to git)
+    ├── .env.production       # Production Railway API URL (not committed to git)
     └── src/
         ├── api/              # Fetch wrappers for all endpoints
         ├── components/       # Navbar, Footer, CartSidebar, ProductCard
