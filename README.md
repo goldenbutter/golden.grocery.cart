@@ -22,7 +22,7 @@
 ## ✨ Features
 
 ### 🛍️ Customer Experience
-- Browse and search products by category
+- Browse and search products by category with EN/NO language toggle
 - Add to cart with quantity stepper and fly-to-cart animation
 - Secure checkout and order placement
 - View full order history and status
