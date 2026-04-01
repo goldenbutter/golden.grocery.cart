@@ -8,6 +8,17 @@
   <video src="https://github.com/user-attachments/assets/d2ec1712-9a40-4059-918f-c428d90129ec" width="100%" controls autoplay loop muted></video>
 </div>
 
+## 🌐 Live Demo
+
+**[https://goldenfreshcart.netlify.app](https://goldenfreshcart.netlify.app)**
+
+| Service | Platform | URL |
+|---------|----------|-----|
+| Frontend | Netlify | https://goldenfreshcart.netlify.app |
+| Backend API | Railway | https://goldengrocerycart-production.up.railway.app |
+
+---
+
 ## ✨ Features
 
 ### 🛍️ Customer Experience
