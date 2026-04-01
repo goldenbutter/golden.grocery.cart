@@ -13,10 +13,10 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Connect to PostgreSQL — reads DATABASE_URL from Railway's environment variable
-// Railway provides DATABASE_URL as postgresql://user:pass@host:port/db
-// Npgsql requires key=value format, so we parse the URI and convert it
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+// Connect to PostgreSQL — prefers DATABASE_PUBLIC_URL (public TCP proxy) over DATABASE_URL (internal)
+// Internal Railway hostname (postgres.railway.internal) can fail DNS in some setups
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL")
+                  ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (!string.IsNullOrEmpty(databaseUrl))
