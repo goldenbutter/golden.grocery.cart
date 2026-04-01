@@ -187,6 +187,42 @@ golden.grocery.cart/
 
 ---
 
+## 🚀 Deployment Configuration
+
+### Netlify (Frontend)
+- Connect your GitHub repo to Netlify
+- `netlify.toml` at the project root handles the build config automatically (base: `frontend/`, command: `npm run build`, publish: `dist`)
+- Add environment variable in Netlify dashboard:
+  - `VITE_API_URL` = your Railway backend URL (e.g. `https://your-app.up.railway.app`)
+- `frontend/public/_redirects` handles React Router 404s on refresh
+
+### Railway (Backend)
+- Connect your GitHub repo to Railway → set root directory to `backend/GoldenFreshCart.API`
+- Railway uses the `Dockerfile` automatically for builds
+- Add environment variables in Railway dashboard:
+  - `DATABASE_URL` = Supabase session pooler connection URI (see below)
+  - `ASPNETCORE_URLS` = `http://0.0.0.0:8080`
+  - `ASPNETCORE_ENVIRONMENT` = `Production`
+- The app auto-runs EF Core migrations and seeds data on first startup
+
+### Supabase (Database)
+- Create a free project at [supabase.com](https://supabase.com)
+- Go to **Connect** → copy the **Session pooler** URI (port **5432**)
+  > ⚠️ Use session pooler (port 5432), NOT transaction pooler (port 6543) — EF Core requires persistent connections
+- Set this URI as `DATABASE_URL` in Railway
+- For local development, use the key=value format in `appsettings.json`:
+  ```
+  Host=db.xxx.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=yourpassword;SSL Mode=Require;Trust Server Certificate=true
+  ```
+
+### CORS
+After deploying, update `Program.cs` to allow your Netlify domain:
+```csharp
+policy.WithOrigins("http://localhost:5173", "https://your-app.netlify.app")
+```
+
+---
+
 ## Author
 
 **Bithun** — Senior Technical Consultant
