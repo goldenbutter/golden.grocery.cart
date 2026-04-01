@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../api';
 import { useAuthStore } from '../store/authStore';
+import { useT } from '../hooks/useT';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { setUser } = useAuthStore();
+  const { t } = useT();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,8 +34,8 @@ export default function LoginPage() {
         <div className="card p-8">
           <div className="text-center mb-8">
             <span className="text-4xl">🛒</span>
-            <h1 className="font-display text-3xl font-bold text-forest-800 mt-2">Welcome back</h1>
-            <p className="text-forest-500 mt-1">Sign in to your GoldenFreshCart account</p>
+            <h1 className="font-display text-3xl font-bold text-forest-800 mt-2">{t.login_title}</h1>
+            <p className="text-forest-500 mt-1">{t.login_sub}</p>
           </div>
 
           {error && (
@@ -44,7 +46,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-forest-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-forest-700 mb-1.5">{t.login_email}</label>
               <input
                 className="input"
                 type="email"
@@ -55,7 +57,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-forest-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-forest-700 mb-1.5">{t.login_password}</label>
               <input
                 className="input"
                 type="password"
@@ -66,13 +68,13 @@ export default function LoginPage() {
               />
             </div>
             <button type="submit" disabled={loading} className="btn-primary w-full py-3 mt-2">
-              {loading ? 'Signing in...' : 'Sign In'}
+              {loading ? t.login_submitting : t.login_submit}
             </button>
           </form>
 
           <p className="text-center text-forest-500 text-sm mt-6">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-forest-600 font-medium hover:underline">Create one</Link>
+            {t.login_no_account}{' '}
+            <Link to="/register" className="text-forest-600 font-medium hover:underline">{t.login_create_one}</Link>
           </p>
 
         </div>

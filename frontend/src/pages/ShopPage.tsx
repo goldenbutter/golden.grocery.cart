@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { categoriesApi, productsApi } from '../api';
 import type { Category, Product } from '../types';
 import ProductCard from '../components/product/ProductCard';
+import { useT } from '../hooks/useT';
 
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -9,6 +10,7 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>();
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const { t } = useT();
 
   // Fetch categories once on mount — they don't change based on search/filter
   useEffect(() => {
@@ -28,8 +30,8 @@ export default function ShopPage() {
   return (
     <div className="page-enter max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-8">
-        <h1 className="font-display text-4xl font-bold text-forest-800 mb-1">Fresh Groceries</h1>
-        <p className="text-forest-500">Browse our full range of fresh, quality products</p>
+        <h1 className="font-display text-4xl font-bold text-forest-800 mb-1">{t.shop_title}</h1>
+        <p className="text-forest-500">{t.shop_sub}</p>
       </div>
 
       {/* Search input — filters products by name and description via the backend */}
@@ -39,7 +41,7 @@ export default function ShopPage() {
         </svg>
         <input
           className="input pl-10"
-          placeholder="Search products..."
+          placeholder={t.shop_search_placeholder}
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
@@ -56,7 +58,7 @@ export default function ShopPage() {
               : 'bg-white text-forest-600 border border-cream-300 hover:border-forest-400'
           }`}
         >
-          All
+          {t.shop_all}
         </button>
         {categories.map(cat => (
           <button
@@ -84,15 +86,15 @@ export default function ShopPage() {
       ) : products.length === 0 ? (
         <div className="text-center py-24">
           <span className="text-5xl">🔍</span>
-          <p className="mt-4 text-forest-500 font-medium">No products found</p>
+          <p className="mt-4 text-forest-500 font-medium">{t.shop_no_products}</p>
           {/* Clear filters resets both search and category selection */}
           <button type="button" onClick={() => { setSearch(''); setSelectedCategory(undefined); }} className="btn-ghost mt-2">
-            Clear filters
+            {t.shop_clear_filters}
           </button>
         </div>
       ) : (
         <>
-          <p className="text-forest-500 text-sm mb-4">{products.length} products</p>
+          <p className="text-forest-500 text-sm mb-4">{products.length} {t.shop_product_count}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map(p => <ProductCard key={p.id} product={p} />)}
           </div>

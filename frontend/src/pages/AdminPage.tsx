@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ordersApi, productsApi, categoriesApi, authApi } from '../api';
 import type { AdminOrder, DashboardStats, Product, Category, CustomerUser } from '../types';
+import { useT } from '../hooks/useT';
 
 const statusOptions = ['Pending', 'Processing', 'Delivered', 'Cancelled'];
 const statusColors: Record<string, string> = {
@@ -25,6 +26,7 @@ export default function AdminPage() {
   const [form, setForm] = useState({ name: '', description: '', price: '', unit: '', stock: '', imageUrl: '', categoryId: '', isAvailable: true });
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState('');
+  const { t } = useT();
 
   useEffect(() => {
     ordersApi.stats().then(setStats).catch(console.error);
@@ -57,7 +59,7 @@ export default function AdminPage() {
       if (editProduct) await productsApi.update(editProduct.id, payload);
       else await productsApi.create(payload);
       setShowProductForm(false);
-      setMsg(editProduct ? 'Product updated.' : 'Product created.');
+      setMsg(editProduct ? t.admin_product_updated : t.admin_product_created);
       productsApi.getAdminAll().then(setProducts);
     } catch (err: unknown) {
       setMsg(err instanceof Error ? err.message : 'Failed to save');
@@ -67,7 +69,7 @@ export default function AdminPage() {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Delete this product?')) return;
+    if (!confirm(t.admin_delete_confirm)) return;
     await productsApi.delete(id);
     setProducts(ps => ps.filter(p => p.id !== id));
   };
@@ -77,28 +79,37 @@ export default function AdminPage() {
     setOrders(os => os.map(o => o.id === orderId ? { ...o, status: status as AdminOrder['status'] } : o));
   };
 
+  // Map tab keys to translated labels for display
+  const tabLabels: Record<Tab, string> = {
+    dashboard: t.admin_tab_dashboard,
+    products: t.admin_tab_products,
+    orders: t.admin_tab_orders,
+    customers: t.admin_tab_customers,
+  };
+
   return (
     <div className="page-enter max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <h1 className="font-display text-4xl font-bold text-forest-800 mb-2">Admin Panel</h1>
-      <p className="text-forest-500 mb-8">Manage your GoldenFreshCart store</p>
+      <h1 className="font-display text-4xl font-bold text-forest-800 mb-2">{t.admin_title}</h1>
+      <p className="text-forest-500 mb-8">{t.admin_sub}</p>
 
       {msg && (
         <div className="bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 py-3 mb-5 text-sm flex justify-between">
-          {msg} <button onClick={() => setMsg('')} className="text-green-500">✕</button>
+          {msg} <button type="button" onClick={() => setMsg('')} className="text-green-500">✕</button>
         </div>
       )}
 
       {/* Tabs */}
       <div className="flex gap-1 bg-cream-200 p-1 rounded-2xl w-fit mb-8">
-        {(['dashboard', 'products', 'orders', 'customers'] as Tab[]).map(t => (
+        {(['dashboard', 'products', 'orders', 'customers'] as Tab[]).map(tabKey => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`px-5 py-2 rounded-xl text-sm font-medium capitalize transition-all ${
-              tab === t ? 'bg-white text-forest-800 shadow-sm' : 'text-forest-600 hover:text-forest-800'
+            key={tabKey}
+            type="button"
+            onClick={() => setTab(tabKey)}
+            className={`px-5 py-2 rounded-xl text-sm font-medium transition-all ${
+              tab === tabKey ? 'bg-white text-forest-800 shadow-sm' : 'text-forest-600 hover:text-forest-800'
             }`}
           >
-            {t}
+            {tabLabels[tabKey]}
           </button>
         ))}
       </div>
@@ -107,10 +118,10 @@ export default function AdminPage() {
       {tab === 'dashboard' && stats && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { label: 'Total Orders', value: stats.totalOrders, icon: '📦' },
-            { label: 'Total Products', value: stats.totalProducts, icon: '🥦' },
-            { label: 'Customers', value: stats.totalUsers, icon: '👥' },
-            { label: 'Revenue', value: `kr ${stats.totalRevenue.toFixed(0)}`, icon: '💰' },
+            { label: t.admin_stat_orders, value: stats.totalOrders, icon: '📦' },
+            { label: t.admin_stat_products, value: stats.totalProducts, icon: '🥦' },
+            { label: t.admin_stat_customers, value: stats.totalUsers, icon: '👥' },
+            { label: t.admin_stat_revenue, value: `kr ${stats.totalRevenue.toFixed(0)}`, icon: '💰' },
           ].map(s => (
             <div key={s.label} className="card p-6">
               <div className="text-3xl mb-2">{s.icon}</div>
@@ -125,56 +136,56 @@ export default function AdminPage() {
       {tab === 'products' && (
         <>
           <div className="flex justify-between items-center mb-5">
-            <p className="text-forest-500 text-sm">{products.length} products</p>
-            <button onClick={openNew} className="btn-primary">+ Add Product</button>
+            <p className="text-forest-500 text-sm">{products.length} {t.admin_products_count}</p>
+            <button type="button" onClick={openNew} className="btn-primary">{t.admin_add_product}</button>
           </div>
 
           {showProductForm && (
             <div className="card p-6 mb-6">
               <h2 className="font-display text-xl font-semibold text-forest-800 mb-5">
-                {editProduct ? 'Edit Product' : 'New Product'}
+                {editProduct ? t.admin_edit_product : t.admin_new_product}
               </h2>
               <form onSubmit={handleSaveProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Name</label>
-                  <input className="input" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
+                  <label htmlFor="pf-name" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_name}</label>
+                  <input id="pf-name" className="input" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Category</label>
-                  <select className="input" value={form.categoryId} onChange={e => setForm(f => ({ ...f, categoryId: e.target.value }))} required>
-                    <option value="">Select...</option>
+                  <label htmlFor="pf-category" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_category}</label>
+                  <select id="pf-category" className="input" value={form.categoryId} onChange={e => setForm(f => ({ ...f, categoryId: e.target.value }))} required>
+                    <option value="">{t.admin_form_category_placeholder}</option>
                     {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Description</label>
-                  <input className="input" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} required />
+                  <label htmlFor="pf-desc" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_description}</label>
+                  <input id="pf-desc" className="input" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Price (kr)</label>
-                  <input className="input" type="number" step="0.01" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} required />
+                  <label htmlFor="pf-price" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_price}</label>
+                  <input id="pf-price" className="input" type="number" step="0.01" value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Unit</label>
-                  <input className="input" placeholder="kg, pcs, litre..." value={form.unit} onChange={e => setForm(f => ({ ...f, unit: e.target.value }))} required />
+                  <label htmlFor="pf-unit" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_unit}</label>
+                  <input id="pf-unit" className="input" placeholder="kg, pcs, litre..." value={form.unit} onChange={e => setForm(f => ({ ...f, unit: e.target.value }))} required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Stock</label>
-                  <input className="input" type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} required />
+                  <label htmlFor="pf-stock" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_stock}</label>
+                  <input id="pf-stock" className="input" type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-forest-700 mb-1">Image URL</label>
-                  <input className="input" value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))} />
+                  <label htmlFor="pf-image" className="block text-sm font-medium text-forest-700 mb-1">{t.admin_form_image_url}</label>
+                  <input id="pf-image" className="input" value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))} />
                 </div>
                 {editProduct && (
                   <div className="flex items-center gap-2">
                     <input type="checkbox" id="avail" checked={form.isAvailable} onChange={e => setForm(f => ({ ...f, isAvailable: e.target.checked }))} />
-                    <label htmlFor="avail" className="text-sm font-medium text-forest-700">Available</label>
+                    <label htmlFor="avail" className="text-sm font-medium text-forest-700">{t.admin_form_available}</label>
                   </div>
                 )}
                 <div className="sm:col-span-2 flex gap-3 pt-2">
-                  <button type="submit" disabled={saving} className="btn-primary">{saving ? 'Saving...' : 'Save Product'}</button>
-                  <button type="button" onClick={() => setShowProductForm(false)} className="btn-secondary">Cancel</button>
+                  <button type="submit" disabled={saving} className="btn-primary">{saving ? t.admin_saving : t.admin_save}</button>
+                  <button type="button" onClick={() => setShowProductForm(false)} className="btn-secondary">{t.admin_cancel}</button>
                 </div>
               </form>
             </div>
@@ -184,7 +195,7 @@ export default function AdminPage() {
             <table className="w-full text-sm">
               <thead className="bg-cream-100 text-forest-600">
                 <tr>
-                  {['Product', 'Category', 'Price', 'Stock', 'Status', 'Actions'].map(h => (
+                  {[t.admin_col_product, t.admin_col_category, t.admin_col_price, t.admin_col_stock, t.admin_col_status, t.admin_col_actions].map(h => (
                     <th key={h} className="text-left px-4 py-3 font-medium">{h}</th>
                   ))}
                 </tr>
@@ -203,13 +214,13 @@ export default function AdminPage() {
                     <td className="px-4 py-3 text-forest-600">{p.stock}</td>
                     <td className="px-4 py-3">
                       <span className={`badge ${p.isAvailable ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
-                        {p.isAvailable ? 'Active' : 'Hidden'}
+                        {p.isAvailable ? t.admin_status_active : t.admin_status_hidden}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button onClick={() => openEdit(p)} className="text-forest-600 hover:text-forest-800 font-medium text-xs">Edit</button>
-                        <button onClick={() => handleDelete(p.id)} className="text-red-400 hover:text-red-600 font-medium text-xs">Delete</button>
+                        <button type="button" onClick={() => openEdit(p)} className="text-forest-600 hover:text-forest-800 font-medium text-xs">{t.admin_edit}</button>
+                        <button type="button" onClick={() => handleDelete(p.id)} className="text-red-400 hover:text-red-600 font-medium text-xs">{t.admin_delete}</button>
                       </div>
                     </td>
                   </tr>
@@ -225,15 +236,15 @@ export default function AdminPage() {
         <>
           {customersError && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-5 text-sm">
-              Failed to load customers: {customersError}
+              {t.admin_customers_error} {customersError}
             </div>
           )}
-          <p className="text-forest-500 text-sm mb-5">{customers.length} registered customers</p>
+          <p className="text-forest-500 text-sm mb-5">{customers.length} {t.admin_registered_customers}</p>
           <div className="card overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-cream-100 text-forest-600">
                 <tr>
-                  {['#', 'Name', 'Email', 'Joined'].map(h => (
+                  {[t.admin_col_number, t.admin_col_name, t.admin_col_email, t.admin_col_joined].map(h => (
                     <th key={h} className="text-left px-4 py-3 font-medium">{h}</th>
                   ))}
                 </tr>
@@ -267,6 +278,7 @@ export default function AdminPage() {
                 <div className="flex items-center gap-3">
                   <span className="font-display font-bold text-xl text-forest-700">kr {order.total.toFixed(0)}</span>
                   <select
+                    aria-label="Order status"
                     value={order.status}
                     onChange={e => handleStatusChange(order.id, e.target.value)}
                     className={`badge ${statusColors[order.status]} border-0 cursor-pointer text-xs px-3 py-1.5 rounded-full font-medium`}

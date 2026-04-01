@@ -23,7 +23,7 @@
 
 ### 🛍️ Customer Experience
 - Browse and search products by category
-- Add to cart with real-time sidebar updates
+- Add to cart with quantity stepper and fly-to-cart animation
 - Secure checkout and order placement
 - View full order history and status
 

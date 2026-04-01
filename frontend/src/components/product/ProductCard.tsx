@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import type { Product } from '../../types';
 import { useCartStore } from '../../store/cartStore';
+import { useT } from '../../hooks/useT';
 
 interface Props {
   product: Product;
@@ -52,6 +53,7 @@ function flyToCart(fromEl: HTMLElement) {
 
 export default function ProductCard({ product }: Props) {
   const { addItem } = useCartStore();
+  const { t } = useT();
 
   // Local quantity state — resets to 1 after each add
   const [qty, setQty] = useState(1);
@@ -82,12 +84,12 @@ export default function ProductCard({ product }: Props) {
         />
         {product.stock <= 5 && product.stock > 0 && (
           <span className="absolute top-2 right-2 badge bg-amber-100 text-amber-700">
-            Only {product.stock} left
+            {t.card_only_left} {product.stock} {t.card_left}
           </span>
         )}
         {isOutOfStock && (
           <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-            <span className="badge bg-red-100 text-red-600 text-sm">Out of Stock</span>
+            <span className="badge bg-red-100 text-red-600 text-sm">{t.card_out_of_stock}</span>
           </div>
         )}
       </div>
@@ -118,7 +120,7 @@ export default function ProductCard({ product }: Props) {
                 type="button"
                 onClick={() => setQty(q => Math.max(1, q - 1))}
                 disabled={qty <= 1}
-                aria-label="Decrease quantity"
+                aria-label={t.card_decrease_qty}
                 className="w-7 h-7 rounded-lg border border-forest-200 text-forest-600 font-bold
                            flex items-center justify-center hover:bg-cream-100 transition-colors
                            disabled:opacity-30 disabled:cursor-not-allowed"
@@ -132,7 +134,7 @@ export default function ProductCard({ product }: Props) {
                 type="button"
                 onClick={() => setQty(q => Math.min(product.stock, q + 1))}
                 disabled={qty >= product.stock}
-                aria-label="Increase quantity"
+                aria-label={t.card_increase_qty}
                 className="w-7 h-7 rounded-lg border border-forest-200 text-forest-600 font-bold
                            flex items-center justify-center hover:bg-cream-100 transition-colors
                            disabled:opacity-30 disabled:cursor-not-allowed"
@@ -149,7 +151,7 @@ export default function ProductCard({ product }: Props) {
               className="bg-forest-600 hover:bg-forest-700 text-white text-sm font-medium
                          px-4 py-2 rounded-xl transition-all active:scale-95"
             >
-              Add
+              {t.card_add}
             </button>
           </div>
         )}
@@ -162,7 +164,7 @@ export default function ProductCard({ product }: Props) {
             className="mt-auto bg-forest-600 opacity-40 cursor-not-allowed
                        text-white text-sm font-medium px-4 py-2 rounded-xl"
           >
-            Add
+            {t.card_add}
           </button>
         )}
       </div>
