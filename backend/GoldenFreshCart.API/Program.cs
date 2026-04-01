@@ -13,23 +13,10 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Connect to PostgreSQL — prefers DATABASE_PUBLIC_URL (public TCP proxy) over DATABASE_URL (internal)
-// Internal Railway hostname (postgres.railway.internal) can fail DNS in some setups
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_PUBLIC_URL")
-                  ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+// Connect to SQLite database — file is created at the project root as goldenfreshcart.db
+// To change the DB file location, update "DefaultConnection" in appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    if (!string.IsNullOrEmpty(databaseUrl))
-    {
-        // Parse the URI and build an Npgsql key=value connection string
-        var uri = new Uri(databaseUrl);
-        var userInfo = uri.UserInfo.Split(':');
-        var npgsqlConn = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
-        options.UseNpgsql(npgsqlConn);
-    }
-    else
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Read the JWT secret key from appsettings.json — used to sign and verify tokens
 // If you change the key, all existing tokens become invalid (users will be logged out)

@@ -4,7 +4,6 @@ using GoldenFreshCart.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,31 +15,25 @@ namespace GoldenFreshCart.API.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
             modelBuilder.Entity("GoldenFreshCart.API.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Icon")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -95,26 +88,24 @@ namespace GoldenFreshCart.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DeliveryAddress")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -127,18 +118,16 @@ namespace GoldenFreshCart.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,2)");
@@ -156,40 +145,38 @@ namespace GoldenFreshCart.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Stock")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -202,7 +189,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(35),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 686, DateTimeKind.Utc).AddTicks(7542),
                             Description = "Fresh organic bananas, perfect for smoothies and snacking.",
                             ImageUrl = "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400",
                             IsAvailable = true,
@@ -215,7 +202,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5414),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1232),
                             Description = "Crisp and sweet red apples sourced from local orchards.",
                             ImageUrl = "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400",
                             IsAvailable = true,
@@ -228,7 +215,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5420),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1265),
                             Description = "Tender baby spinach leaves, washed and ready to eat.",
                             ImageUrl = "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400",
                             IsAvailable = true,
@@ -241,7 +228,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5423),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1267),
                             Description = "Vine-ripened cherry tomatoes bursting with flavour.",
                             ImageUrl = "https://images.unsplash.com/photo-1561136594-7f68413baa99?w=400",
                             IsAvailable = true,
@@ -254,7 +241,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5425),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1268),
                             Description = "Full-cream fresh whole milk from grass-fed cows.",
                             ImageUrl = "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400",
                             IsAvailable = true,
@@ -267,7 +254,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5427),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1270),
                             Description = "A dozen large free-range eggs.",
                             ImageUrl = "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400",
                             IsAvailable = true,
@@ -280,7 +267,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5429),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1271),
                             Description = "Thick and creamy authentic Greek-style yoghurt.",
                             ImageUrl = "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400",
                             IsAvailable = true,
@@ -293,7 +280,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 8,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5432),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1272),
                             Description = "Artisan sourdough baked fresh daily with a tangy crust.",
                             ImageUrl = "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",
                             IsAvailable = true,
@@ -306,7 +293,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5433),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1274),
                             Description = "Buttery, flaky French croissants baked fresh each morning.",
                             ImageUrl = "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400",
                             IsAvailable = true,
@@ -319,7 +306,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 10,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5435),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1275),
                             Description = "Skinless free-range chicken breast fillets.",
                             ImageUrl = "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400",
                             IsAvailable = true,
@@ -332,7 +319,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 11,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5437),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1277),
                             Description = "Fresh Atlantic salmon fillets, skin on.",
                             ImageUrl = "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400",
                             IsAvailable = true,
@@ -345,7 +332,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 12,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5441),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1278),
                             Description = "Freshly squeezed 100% pure orange juice, no added sugar.",
                             ImageUrl = "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400",
                             IsAvailable = true,
@@ -358,7 +345,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 13,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5444),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1280),
                             Description = "Natural sparkling mineral water, lightly carbonated.",
                             ImageUrl = "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=400",
                             IsAvailable = true,
@@ -371,7 +358,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 14,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5446),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1281),
                             Description = "Classic beef hot dog sausages, ready to grill or boil.",
                             ImageUrl = "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400",
                             IsAvailable = true,
@@ -384,7 +371,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 15,
                             CategoryId = 6,
-                            CreatedAt = new DateTime(2026, 4, 1, 13, 10, 56, 793, DateTimeKind.Utc).AddTicks(5448),
+                            CreatedAt = new DateTime(2026, 4, 1, 13, 41, 1, 687, DateTimeKind.Utc).AddTicks(1282),
                             Description = "70% cocoa rich dark chocolate bar.",
                             ImageUrl = "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400",
                             IsAvailable = true,
@@ -399,28 +386,26 @@ namespace GoldenFreshCart.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -433,7 +418,7 @@ namespace GoldenFreshCart.API.Migrations
                             CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@goldenfreshcart.com",
                             Name = "Admin User",
-                            PasswordHash = "$2a$11$OeocTf1.om8/Xb95X/2VDOnH3a.6D5E7ESj/EDoWlh302IFcQRL5i",
+                            PasswordHash = "$2a$11$eDln7lLlk9UbPGH1vv9IpO.iLI/W0WuwEM.5nQgAe/6nuI3Vyv086",
                             Role = "Admin"
                         });
                 });
