@@ -64,7 +64,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             new User
             {
                 Id = 1,
-                Name = "Bithun",
+                Name = "Admin User",
                 Email = "admin@goldenfreshcart.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
                 Role = "Admin",
