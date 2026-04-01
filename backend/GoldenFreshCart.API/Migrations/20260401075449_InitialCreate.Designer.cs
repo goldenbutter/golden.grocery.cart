@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoldenFreshCart.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260401073255_InitialCreate")]
+    [Migration("20260401075449_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -192,7 +192,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 124, DateTimeKind.Utc).AddTicks(7393),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(3818),
                             Description = "Fresh organic bananas, perfect for smoothies and snacking.",
                             ImageUrl = "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400",
                             IsAvailable = true,
@@ -205,7 +205,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(947),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7141),
                             Description = "Crisp and sweet red apples sourced from local orchards.",
                             ImageUrl = "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400",
                             IsAvailable = true,
@@ -218,7 +218,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(951),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7145),
                             Description = "Tender baby spinach leaves, washed and ready to eat.",
                             ImageUrl = "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400",
                             IsAvailable = true,
@@ -231,7 +231,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(952),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7147),
                             Description = "Vine-ripened cherry tomatoes bursting with flavour.",
                             ImageUrl = "https://images.unsplash.com/photo-1561136594-7f68413baa99?w=400",
                             IsAvailable = true,
@@ -244,7 +244,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(968),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7163),
                             Description = "Full-cream fresh whole milk from grass-fed cows.",
                             ImageUrl = "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400",
                             IsAvailable = true,
@@ -257,7 +257,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(970),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7164),
                             Description = "A dozen large free-range eggs.",
                             ImageUrl = "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400",
                             IsAvailable = true,
@@ -270,7 +270,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(972),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7166),
                             Description = "Thick and creamy authentic Greek-style yoghurt.",
                             ImageUrl = "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400",
                             IsAvailable = true,
@@ -283,7 +283,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 8,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(973),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7167),
                             Description = "Artisan sourdough baked fresh daily with a tangy crust.",
                             ImageUrl = "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400",
                             IsAvailable = true,
@@ -296,7 +296,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 9,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(975),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7169),
                             Description = "Buttery, flaky French croissants baked fresh each morning.",
                             ImageUrl = "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400",
                             IsAvailable = true,
@@ -309,7 +309,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 10,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(976),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7170),
                             Description = "Skinless free-range chicken breast fillets.",
                             ImageUrl = "https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400",
                             IsAvailable = true,
@@ -322,7 +322,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 11,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(978),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7172),
                             Description = "Fresh Atlantic salmon fillets, skin on.",
                             ImageUrl = "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400",
                             IsAvailable = true,
@@ -335,7 +335,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 12,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(979),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7173),
                             Description = "Freshly squeezed 100% pure orange juice, no added sugar.",
                             ImageUrl = "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400",
                             IsAvailable = true,
@@ -348,7 +348,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 13,
                             CategoryId = 5,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(981),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7174),
                             Description = "Natural sparkling mineral water, lightly carbonated.",
                             ImageUrl = "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=400",
                             IsAvailable = true,
@@ -361,7 +361,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 14,
                             CategoryId = 4,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(982),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7176),
                             Description = "Classic beef hot dog sausages, ready to grill or boil.",
                             ImageUrl = "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400",
                             IsAvailable = true,
@@ -374,7 +374,7 @@ namespace GoldenFreshCart.API.Migrations
                         {
                             Id = 15,
                             CategoryId = 6,
-                            CreatedAt = new DateTime(2026, 4, 1, 7, 32, 54, 125, DateTimeKind.Utc).AddTicks(984),
+                            CreatedAt = new DateTime(2026, 4, 1, 7, 54, 48, 395, DateTimeKind.Utc).AddTicks(7177),
                             Description = "70% cocoa rich dark chocolate bar.",
                             ImageUrl = "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400",
                             IsAvailable = true,
@@ -420,8 +420,8 @@ namespace GoldenFreshCart.API.Migrations
                             Id = 1,
                             CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@goldenfreshcart.com",
-                            Name = "Bithun",
-                            PasswordHash = "$2a$11$7zHPLdUbavJebJ48NqJIx.AE4eBA3SpOFuv4r5m6.L.3DYcf.jE4K",
+                            Name = "Admin User",
+                            PasswordHash = "$2a$11$edKkEKiPpayR.VryA1okveuqq0d.C3Zil0EqWIM0wU4ouhxy/.WlK",
                             Role = "Admin"
                         });
                 });
