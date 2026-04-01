@@ -162,7 +162,9 @@ export const en = {
   admin_products_count: 'products',
 } as const;
 
-export type TranslationKeys = typeof en;
+// Keys are inferred from en (so TypeScript catches missing/extra keys in no.ts),
+// but values are widened to string so Norwegian translations are assignable.
+export type TranslationKeys = { [K in keyof typeof en]: string };
 
 // Frontend-only mapping of English DB category names to their display names.
 // Used so ShopPage can look up a translated label without touching the backend.
