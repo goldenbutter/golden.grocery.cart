@@ -43,7 +43,8 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "https://PLACEHOLDER_NETLIFY_URL")
+        // Temporarily allowing all origins — replace with the actual Netlify URL after deployment
+        policy.SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
