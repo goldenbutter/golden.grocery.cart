@@ -43,8 +43,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        // Temporarily allowing all origins — replace with the actual Netlify URL after deployment
-        policy.SetIsOriginAllowed(_ => true)
+        policy.WithOrigins("http://localhost:5173", "https://goldenfreshcart.netlify.app")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
