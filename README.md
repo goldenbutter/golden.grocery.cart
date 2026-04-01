@@ -158,6 +158,7 @@ golden.grocery.cart/
 │       ├── DTOs/             # Request/response models
 │       ├── Models/           # Entity models
 │       ├── Services/         # JWT token service
+│       ├── Dockerfile        # Docker image for Railway deployment
 │       ├── Program.cs
 │       └── appsettings.json
 └── frontend/
