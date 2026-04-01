@@ -13,14 +13,21 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Connect to PostgreSQL (Supabase) — reads DATABASE_URL from Railway environment variable
-// Falls back to DefaultConnection in appsettings.json for local development
+// Connect to PostgreSQL (Supabase)
+// Railway sets DATABASE_URL as a URI — we parse it into key=value format for Npgsql
+// Local dev uses DefaultConnection from appsettings.json (already in key=value format)
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    var connStr = !string.IsNullOrEmpty(databaseUrl)
-        ? databaseUrl
-        : builder.Configuration.GetConnectionString("DefaultConnection");
+    string connStr;
+    if (!string.IsNullOrEmpty(databaseUrl))
+    {
+        var uri = new Uri(databaseUrl);
+        var userInfo = uri.UserInfo.Split(':');
+        connStr = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+    }
+    else
+        connStr = builder.Configuration.GetConnectionString("DefaultConnection")!;
     options.UseNpgsql(connStr);
 });
 
