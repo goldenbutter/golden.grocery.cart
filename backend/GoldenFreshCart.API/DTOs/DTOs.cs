@@ -50,3 +50,7 @@ public record UpdateOrderStatusDto(string Status);
 // Returned by GET /api/orders/admin/stats — shown on the admin dashboard
 // TotalUsers counts only Customers (not Admin accounts)
 public record DashboardStatsDto(int TotalOrders, int TotalProducts, int TotalUsers, decimal TotalRevenue);
+
+// Returned by GET /api/auth/admin/customers — lists all registered customers for admin view
+// PasswordHash is intentionally excluded — never expose it outside the backend
+public record CustomerDto(int Id, string Name, string Email, DateTime CreatedAt);

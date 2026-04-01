@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ordersApi, productsApi, categoriesApi } from '../api';
-import type { AdminOrder, DashboardStats, Product, Category } from '../types';
+import { ordersApi, productsApi, categoriesApi, authApi } from '../api';
+import type { AdminOrder, DashboardStats, Product, Category, CustomerUser } from '../types';
 
 const statusOptions = ['Pending', 'Processing', 'Delivered', 'Cancelled'];
 const statusColors: Record<string, string> = {
@@ -10,7 +10,7 @@ const statusColors: Record<string, string> = {
   Cancelled: 'bg-red-100 text-red-600',
 };
 
-type Tab = 'dashboard' | 'products' | 'orders';
+type Tab = 'dashboard' | 'products' | 'orders' | 'customers';
 
 export default function AdminPage() {
   const [tab, setTab] = useState<Tab>('dashboard');
@@ -18,6 +18,7 @@ export default function AdminPage() {
   const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [customers, setCustomers] = useState<CustomerUser[]>([]);
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [showProductForm, setShowProductForm] = useState(false);
   const [form, setForm] = useState({ name: '', description: '', price: '', unit: '', stock: '', imageUrl: '', categoryId: '', isAvailable: true });
@@ -32,6 +33,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (tab === 'orders') ordersApi.adminAll().then(setOrders).catch(console.error);
     if (tab === 'products') productsApi.getAdminAll().then(setProducts).catch(console.error);
+    if (tab === 'customers') authApi.getCustomers().then(setCustomers).catch(console.error);
   }, [tab]);
 
   const openNew = () => {
@@ -87,7 +89,7 @@ export default function AdminPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 bg-cream-200 p-1 rounded-2xl w-fit mb-8">
-        {(['dashboard', 'products', 'orders'] as Tab[]).map(t => (
+        {(['dashboard', 'products', 'orders', 'customers'] as Tab[]).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -209,6 +211,34 @@ export default function AdminPage() {
                         <button onClick={() => handleDelete(p.id)} className="text-red-400 hover:text-red-600 font-medium text-xs">Delete</button>
                       </div>
                     </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {/* Customers tab — lists all registered Customer accounts */}
+      {tab === 'customers' && (
+        <>
+          <p className="text-forest-500 text-sm mb-5">{customers.length} registered customers</p>
+          <div className="card overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-cream-100 text-forest-600">
+                <tr>
+                  {['#', 'Name', 'Email', 'Joined'].map(h => (
+                    <th key={h} className="text-left px-4 py-3 font-medium">{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-cream-100">
+                {customers.map(c => (
+                  <tr key={c.id} className="hover:bg-cream-50 transition-colors">
+                    <td className="px-4 py-3 text-forest-400">{c.id}</td>
+                    <td className="px-4 py-3 font-medium text-forest-800">{c.name}</td>
+                    <td className="px-4 py-3 text-forest-500">{c.email}</td>
+                    <td className="px-4 py-3 text-forest-400">{new Date(c.createdAt).toLocaleDateString()}</td>
                   </tr>
                 ))}
               </tbody>

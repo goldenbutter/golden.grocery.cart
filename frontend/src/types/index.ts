@@ -74,3 +74,11 @@ export interface DashboardStats {
   totalUsers: number;   // Only counts Customer role accounts
   totalRevenue: number;
 }
+
+// Returned by GET /api/auth/admin/customers — used in the admin Customers tab
+export interface CustomerUser {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+}

@@ -2,6 +2,7 @@ using GoldenFreshCart.API.Data;
 using GoldenFreshCart.API.DTOs;
 using GoldenFreshCart.API.Models;
 using GoldenFreshCart.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,5 +53,21 @@ public class AuthController(AppDbContext db, TokenService tokenService) : Contro
 
         var token = tokenService.GenerateToken(user);
         return Ok(new AuthResponseDto(token, user.Name, user.Email, user.Role));
+    }
+
+    // GET /api/auth/admin/customers
+    // Returns all registered Customer accounts — Admin only
+    // PasswordHash is never included in the response
+    [HttpGet("admin/customers")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetCustomers()
+    {
+        var customers = await db.Users
+            .Where(u => u.Role == "Customer")
+            .OrderByDescending(u => u.CreatedAt)
+            .Select(u => new CustomerDto(u.Id, u.Name, u.Email, u.CreatedAt))
+            .ToListAsync();
+
+        return Ok(customers);
     }
 }

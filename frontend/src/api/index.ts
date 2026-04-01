@@ -47,6 +47,9 @@ export const authApi = {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
     }),
+
+  // Admin only — returns all registered Customer accounts
+  getCustomers: () => request<import('../types').CustomerUser[]>('/auth/admin/customers'),
 };
 
 // --- Products ---
