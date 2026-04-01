@@ -1,4 +1,8 @@
+import { useT } from '../../hooks/useT';
+
 export default function Footer() {
+  const { t } = useT();
+
   return (
     <footer className="bg-forest-900 text-cream-200 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -7,9 +11,9 @@ export default function Footer() {
             <span className="text-2xl">🛒</span>
             <span className="font-display font-bold text-xl text-cream-100">GoldenFreshCart</span>
           </div>
-          <p className="text-cream-300 text-sm">Fresh groceries delivered to your door.</p>
+          <p className="text-cream-300 text-sm">{t.footer_tagline}</p>
           <p className="text-cream-300 text-sm">
-            © {new Date().getFullYear()} <span className="text-earth-400 font-medium">Bithun</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-earth-400 font-medium">Bithun</span>. {t.footer_rights}
           </p>
         </div>
       </div>

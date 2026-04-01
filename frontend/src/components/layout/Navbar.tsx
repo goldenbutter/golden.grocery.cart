@@ -1,10 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { useCartStore } from '../../store/cartStore';
+import { useLangStore } from '../../store/langStore';
+import { useT } from '../../hooks/useT';
 
 export default function Navbar() {
   const { user, logout } = useAuthStore();
   const { count, openCart } = useCartStore();
+  const { lang, setLang } = useLangStore();
+  const { t } = useT();
   const navigate = useNavigate();
 
   // Clear auth state and redirect to home on logout
@@ -29,21 +33,54 @@ export default function Navbar() {
 
           {/* Nav links — hidden on mobile (md:flex) */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link to="/shop" className="btn-ghost text-sm">Shop</Link>
+            <Link to="/shop" className="btn-ghost text-sm">{t.nav_shop}</Link>
 
             {/* Admin link only shown to users with Admin role */}
             {user?.role === 'Admin' && (
-              <Link to="/admin" className="btn-ghost text-sm">Admin</Link>
+              <Link to="/admin" className="btn-ghost text-sm">{t.nav_admin}</Link>
             )}
 
             {/* Orders link only shown when logged in */}
             {user && (
-              <Link to="/orders" className="btn-ghost text-sm">My Orders</Link>
+              <Link to="/orders" className="btn-ghost text-sm">{t.nav_orders}</Link>
             )}
           </nav>
 
-          {/* Right side: cart button + auth actions */}
+          {/* Right side: language toggle + cart button + auth actions */}
           <div className="flex items-center gap-3">
+
+            {/* Language toggle pill — two accessible buttons with aria-pressed */}
+            <div
+              role="group"
+              aria-label="Switch language"
+              className="flex items-center bg-cream-100 rounded-full p-0.5 border border-cream-300"
+            >
+              <button
+                type="button"
+                aria-pressed={lang === 'EN' ? true : false}
+                onClick={() => setLang('EN')}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                  lang === 'EN'
+                    ? 'bg-white text-forest-700 shadow-sm'
+                    : 'text-forest-400 hover:text-forest-600'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                aria-pressed={lang === 'NO' ? true : false}
+                onClick={() => setLang('NO')}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
+                  lang === 'NO'
+                    ? 'bg-white text-forest-700 shadow-sm'
+                    : 'text-forest-400 hover:text-forest-600'
+                }`}
+              >
+                NO
+              </button>
+            </div>
+
             {/* Cart icon with item count badge */}
             {/* id used by ProductCard to find this element's position for the fly-to-cart animation */}
             <button
@@ -69,13 +106,13 @@ export default function Navbar() {
                 {/* User name hidden on small screens */}
                 <span className="hidden sm:block text-sm text-forest-600 font-medium">{user.name}</span>
                 <button type="button" onClick={handleLogout} className="btn-secondary text-sm py-2 px-4">
-                  Logout
+                  {t.nav_logout}
                 </button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link to="/login" className="btn-ghost text-sm">Login</Link>
-                <Link to="/register" className="btn-primary text-sm py-2 px-4">Sign Up</Link>
+                <Link to="/login" className="btn-ghost text-sm">{t.nav_login}</Link>
+                <Link to="/register" className="btn-primary text-sm py-2 px-4">{t.nav_signup}</Link>
               </div>
             )}
           </div>
