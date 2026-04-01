@@ -3,6 +3,7 @@ import { categoriesApi, productsApi } from '../api';
 import type { Category, Product } from '../types';
 import ProductCard from '../components/product/ProductCard';
 import { useT } from '../hooks/useT';
+import { categoryNamesNo } from '../translations';
 
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,7 +11,7 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>();
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  const { t } = useT();
+  const { t, lang } = useT();
 
   // Fetch categories once on mount — they don't change based on search/filter
   useEffect(() => {
@@ -71,7 +72,8 @@ export default function ShopPage() {
                 : 'bg-white text-forest-600 border border-cream-300 hover:border-forest-400'
             }`}
           >
-            {cat.icon} {cat.name}
+            {/* Display translated name when in NO — filter still uses original English name from DB */}
+            {cat.icon} {lang === 'NO' ? (categoryNamesNo[cat.name] ?? cat.name) : cat.name}
           </button>
         ))}
       </div>

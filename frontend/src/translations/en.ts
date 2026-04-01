@@ -163,3 +163,14 @@ export const en = {
 } as const;
 
 export type TranslationKeys = typeof en;
+
+// Frontend-only mapping of English DB category names to their display names.
+// Used so ShopPage can look up a translated label without touching the backend.
+export const categoryNamesNo: Record<string, string> = {
+  'Fruits & Vegetables': 'Frukt og grønnsaker',
+  'Dairy & Eggs': 'Meieri og egg',
+  'Bakery': 'Bakeri',
+  'Meat & Seafood': 'Kjøtt og sjømat',
+  'Beverages': 'Drikkevarer',
+  'Snacks': 'Snacks',
+};
