@@ -75,12 +75,6 @@ export default function LoginPage() {
             <Link to="/register" className="text-forest-600 font-medium hover:underline">Create one</Link>
           </p>
 
-          <div className="mt-6 pt-6 border-t border-cream-200">
-            <p className="text-xs text-forest-400 text-center mb-2">Admin demo account</p>
-            <div className="bg-cream-100 rounded-xl p-3 text-xs text-forest-600 font-mono text-center">
-              admin@goldenfreshcart.com / Admin@123
-            </div>
-          </div>
         </div>
       </div>
     </div>
