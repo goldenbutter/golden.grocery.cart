@@ -14,13 +14,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 // Connect to PostgreSQL — reads DATABASE_URL from Railway's environment variable
-// Falls back to DefaultConnection in appsettings.json for local development
+// Railway provides DATABASE_URL as postgres://user:pass@host:port/db
+// Npgsql requires postgresql:// scheme, so we replace it before passing to UseNpgsql
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     if (!string.IsNullOrEmpty(databaseUrl))
-        // Railway provides DATABASE_URL in postgres:// format — Npgsql accepts it directly
-        options.UseNpgsql(databaseUrl);
+    {
+        // Convert postgres:// → postgresql:// which Npgsql requires
+        var connStr = databaseUrl.Replace("postgres://", "postgresql://");
+        options.UseNpgsql(connStr);
+    }
     else
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
