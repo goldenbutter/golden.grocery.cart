@@ -7,7 +7,7 @@ import type { CartItem, Product } from '../types';
 interface CartState {
   items: CartItem[];
   isOpen: boolean;           // Controls whether the CartSidebar panel is visible
-  addItem: (product: Product) => void;
+  addItem: (product: Product, qty?: number) => void;
   removeItem: (productId: number) => void;
   updateQty: (productId: number, qty: number) => void;
   clearCart: () => void;
@@ -21,18 +21,18 @@ export const useCartStore = create<CartState>((set, get) => ({
   items: [],
   isOpen: false,
 
-  // If the product is already in the cart, increment its quantity
-  // Otherwise, add it as a new item with quantity 1
-  addItem: (product) => {
+  // If the product is already in the cart, increment its quantity by qty (default 1)
+  // Otherwise, add it as a new item with the given qty
+  addItem: (product, qty = 1) => {
     const existing = get().items.find(i => i.product.id === product.id);
     if (existing) {
       set(s => ({
         items: s.items.map(i =>
-          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.product.id === product.id ? { ...i, quantity: i.quantity + qty } : i
         )
       }));
     } else {
-      set(s => ({ items: [...s.items, { product, quantity: 1 }] }));
+      set(s => ({ items: [...s.items, { product, quantity: qty }] }));
     }
   },
 

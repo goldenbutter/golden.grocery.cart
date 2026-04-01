@@ -45,7 +45,9 @@ export default function Navbar() {
           {/* Right side: cart button + auth actions */}
           <div className="flex items-center gap-3">
             {/* Cart icon with item count badge */}
+            {/* id used by ProductCard to find this element's position for the fly-to-cart animation */}
             <button
+              id="cart-icon-btn"
               type="button"
               onClick={openCart}
               className="relative p-2 rounded-xl hover:bg-cream-100 transition-colors"

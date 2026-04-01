@@ -13,23 +13,31 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Connect to PostgreSQL (Supabase)
-// Railway sets DATABASE_URL as a URI — we parse it into key=value format for Npgsql
-// Local dev uses DefaultConnection from appsettings.json (already in key=value format)
-var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-builder.Services.AddDbContext<AppDbContext>(options =>
+// Connect to PostgreSQL (Supabase/Railway)
+// Priority: DATABASE_URL env var (Railway) → DefaultConnection in appsettings (local dev)
+// Both URI format (postgresql://user:pass@host/db) and key=value format are supported
+static string ParseConnectionString(string raw)
 {
-    string connStr;
-    if (!string.IsNullOrEmpty(databaseUrl))
+    // If it looks like a URI, convert it to Npgsql key=value format
+    if (raw.StartsWith("postgresql://") || raw.StartsWith("postgres://"))
     {
-        var uri = new Uri(databaseUrl);
+        var uri = new Uri(raw);
         var userInfo = uri.UserInfo.Split(':');
-        connStr = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+        return $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
     }
-    else
-        connStr = builder.Configuration.GetConnectionString("DefaultConnection")!;
-    options.UseNpgsql(connStr);
-});
+    // Already in key=value format — use as-is
+    return raw;
+}
+
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(databaseUrl))
+    throw new InvalidOperationException(
+        "No database connection string found. Set DATABASE_URL env var or DefaultConnection in appsettings.json.");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(ParseConnectionString(databaseUrl)));
 
 // Read the JWT secret key from appsettings.json — used to sign and verify tokens
 // If you change the key, all existing tokens become invalid (users will be logged out)
