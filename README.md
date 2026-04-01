@@ -5,7 +5,7 @@
 ---
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/d2ec1712-9a40-4059-918f-c428d90129ec" width="100%" controls autoplay loop muted></video>
+  <video src="https://github.com/user-attachments/assets/e071b0f6-1352-4127-9bff-7ed86fc09370" width="100%" controls autoplay loop muted></video>
 </div>
 
 ## 🌐 Live Demo
@@ -50,7 +50,7 @@
 |------------|-----------------------------------------|
 | Frontend   | React 19, TypeScript, Vite, Tailwind CSS |
 | Backend    | ASP.NET Core 10 Web API                 |
-| Database   | SQLite via Entity Framework Core        |
+| Database   | PostgreSQL (Supabase) via Entity Framework Core |
 | Auth       | JWT Bearer Tokens                       |
 | State      | Zustand                                 |
 
@@ -175,7 +175,7 @@ golden.grocery.cart/
 └── frontend/
     ├── public/
     │   └── _redirects        # Netlify SPA redirect rule for React Router
-    ├── .env.development      # Local dev API URL (not committed to git)
+    ├── .env.development      # Local dev API URL — http://localhost:8080 (not committed to git)
     ├── .env.production       # Production Railway API URL (not committed to git)
     └── src/
         ├── api/              # Fetch wrappers for all endpoints
