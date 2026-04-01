@@ -13,10 +13,17 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Connect to SQLite database — file is created at the project root as goldenfreshcart.db
-// To change the DB file location, update "DefaultConnection" in appsettings.json
+// Connect to PostgreSQL — reads DATABASE_URL from Railway's environment variable
+// Falls back to DefaultConnection in appsettings.json for local development
+var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    if (!string.IsNullOrEmpty(databaseUrl))
+        // Railway provides DATABASE_URL in postgres:// format — Npgsql accepts it directly
+        options.UseNpgsql(databaseUrl);
+    else
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // Read the JWT secret key from appsettings.json — used to sign and verify tokens
 // If you change the key, all existing tokens become invalid (users will be logged out)
