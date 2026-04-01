@@ -19,6 +19,7 @@ export default function AdminPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [customers, setCustomers] = useState<CustomerUser[]>([]);
+  const [customersError, setCustomersError] = useState('');
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [showProductForm, setShowProductForm] = useState(false);
   const [form, setForm] = useState({ name: '', description: '', price: '', unit: '', stock: '', imageUrl: '', categoryId: '', isAvailable: true });
@@ -33,7 +34,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (tab === 'orders') ordersApi.adminAll().then(setOrders).catch(console.error);
     if (tab === 'products') productsApi.getAdminAll().then(setProducts).catch(console.error);
-    if (tab === 'customers') authApi.getCustomers().then(setCustomers).catch(console.error);
+    if (tab === 'customers') authApi.getCustomers().then(setCustomers).catch(err => setCustomersError(err.message));
   }, [tab]);
 
   const openNew = () => {
@@ -222,6 +223,11 @@ export default function AdminPage() {
       {/* Customers tab — lists all registered Customer accounts */}
       {tab === 'customers' && (
         <>
+          {customersError && (
+            <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 mb-5 text-sm">
+              Failed to load customers: {customersError}
+            </div>
+          )}
           <p className="text-forest-500 text-sm mb-5">{customers.length} registered customers</p>
           <div className="card overflow-hidden">
             <table className="w-full text-sm">
