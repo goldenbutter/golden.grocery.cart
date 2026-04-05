@@ -10,11 +10,11 @@
 
 ## 🌐 Live Demo
 
-**[https://goldenfreshcart.netlify.app](https://goldenfreshcart.netlify.app)**
+**[https://demo-goldenfreshcart.ibithun.com](https://demo-goldenfreshcart.ibithun.com)**
 
 | Service | Platform | URL |
 |---------|----------|-----|
-| Frontend | Netlify | https://goldenfreshcart.netlify.app |
+| Frontend | Vercel | https://demo-goldenfreshcart.ibithun.com |
 | Backend API | Railway | https://goldengrocerycart-production.up.railway.app |
 
 ---
@@ -161,7 +161,7 @@ Both terminals must stay running at the same time.
 
 ```
 golden.grocery.cart/
-├── netlify.toml              # Netlify build config (base, command, publish dir)
+├── vercel.json               # Vercel build config (build command, output dir, SPA rewrites)
 ├── backend/
 │   └── GoldenFreshCart.API/
 │       ├── Controllers/      # Auth, Products, Categories, Orders
@@ -173,8 +173,6 @@ golden.grocery.cart/
 │       ├── Program.cs
 │       └── appsettings.json
 └── frontend/
-    ├── public/
-    │   └── _redirects        # Netlify SPA redirect rule for React Router
     ├── .env.development      # Local dev API URL — http://localhost:8080 (not committed to git)
     ├── .env.production       # Production Railway API URL (not committed to git)
     └── src/
@@ -189,12 +187,14 @@ golden.grocery.cart/
 
 ## 🚀 Deployment Configuration
 
-### Netlify (Frontend)
-- Connect your GitHub repo to Netlify
-- `netlify.toml` at the project root handles the build config automatically (base: `frontend/`, command: `npm run build`, publish: `dist`)
-- Add environment variable in Netlify dashboard:
+### Vercel (Frontend)
+- Connect your GitHub repo to Vercel and select the "goldenbutter's projects" team
+- `vercel.json` at the project root handles the build config automatically
+- Add environment variable in Vercel dashboard:
   - `VITE_API_URL` = your Railway backend URL (e.g. `https://your-app.up.railway.app`)
-- `frontend/public/_redirects` handles React Router 404s on refresh
+- React Router 404s on refresh are handled by the `rewrites` rule in `vercel.json`
+- Add your custom domain (`demo-goldenfreshcart.ibithun.com`) in **Vercel → Project → Settings → Domains**
+  - Then add a CNAME record at your DNS provider: `demo-goldenfreshcart` → `cname.vercel-dns.com`
 
 ### Railway (Backend)
 - Connect your GitHub repo to Railway → set root directory to `backend/GoldenFreshCart.API`
@@ -216,9 +216,9 @@ golden.grocery.cart/
   ```
 
 ### CORS
-After deploying, update `Program.cs` to allow your Netlify domain:
+After deploying, update `Program.cs` to allow your Vercel domain:
 ```csharp
-policy.WithOrigins("http://localhost:5173", "https://your-app.netlify.app")
+policy.WithOrigins("http://localhost:5173", "https://demo-goldenfreshcart.ibithun.com")
 ```
 
 ---

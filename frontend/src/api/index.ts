@@ -2,7 +2,7 @@
 // To add a new endpoint, add a function here and call it from your component or page.
 
 // In development, VITE_API_URL is set to http://localhost:5000 via .env.development
-// In production (Netlify), it is set to the Railway backend URL via .env.production
+// In production (Vercel), it is set to the Railway backend URL via the Vercel dashboard env vars
 const BASE = (import.meta.env.VITE_API_URL ?? 'http://localhost:5000') + '/api';
 
 // Read the JWT token from localStorage — stored there by authStore after login/register

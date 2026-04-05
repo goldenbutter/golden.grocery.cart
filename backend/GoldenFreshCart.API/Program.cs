@@ -62,12 +62,12 @@ builder.Services.AddAuthorization();
 // Register TokenService as scoped — a new instance per HTTP request
 builder.Services.AddScoped<TokenService>();
 
-// Allow requests from local dev and production Netlify frontend
-// After deploying to Netlify, replace PLACEHOLDER_NETLIFY_URL with your actual Netlify domain
+// Allow requests from local dev and production Vercel frontend
+// Add your Vercel project URL here after first deploy (e.g. https://golden-grocery-cart.vercel.app)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "https://goldenfreshcart.netlify.app")
+        policy.WithOrigins("http://localhost:5173", "https://demo-goldenfreshcart.ibithun.com")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
