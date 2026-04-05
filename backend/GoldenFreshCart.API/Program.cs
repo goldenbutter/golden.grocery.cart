@@ -62,12 +62,15 @@ builder.Services.AddAuthorization();
 // Register TokenService as scoped — a new instance per HTTP request
 builder.Services.AddScoped<TokenService>();
 
-// Allow requests from local dev and production Vercel frontend
-// Add your Vercel project URL here after first deploy (e.g. https://golden-grocery-cart.vercel.app)
+// Allow requests from local dev and all production Vercel frontend domains
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "https://demo-goldenfreshcart.ibithun.com")
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://goldenfreshcart.ibithun.com",
+                "https://demo-goldenfreshcart.ibithun.com",
+                "https://golden-grocery-cart.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
