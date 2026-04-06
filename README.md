@@ -10,7 +10,7 @@
 
 ## 🌐 Live Demo
 
-**[https://demo-goldenfreshcart.ibithun.com](https://demo-goldenfreshcart.ibithun.com)**
+**[https://goldenfreshcart.ibithun.com/](https://demo-goldenfreshcart.ibithun.com)**
 
 | Service | Platform | URL |
 |---------|----------|-----|
