@@ -69,7 +69,6 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(
                 "http://localhost:5173",
                 "https://goldenfreshcart.ibithun.com",
-                "https://demo-goldenfreshcart.ibithun.com",
                 "https://golden-grocery-cart.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod());

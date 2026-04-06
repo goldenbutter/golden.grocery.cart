@@ -10,11 +10,11 @@
 
 ## 🌐 Live Demo
 
-**[https://goldenfreshcart.ibithun.com/](https://demo-goldenfreshcart.ibithun.com)**
+**[https://goldenfreshcart.ibithun.com/](https://goldenfreshcart.ibithun.com)**
 
 | Service | Platform | URL |
 |---------|----------|-----|
-| Frontend | Vercel | https://demo-goldenfreshcart.ibithun.com |
+| Frontend | Vercel | https://goldenfreshcart.ibithun.com |
 | Backend API | Railway | https://goldengrocerycart-production.up.railway.app |
 
 ---
@@ -193,8 +193,8 @@ golden.grocery.cart/
 - Add environment variable in Vercel dashboard:
   - `VITE_API_URL` = your Railway backend URL (e.g. `https://your-app.up.railway.app`)
 - React Router 404s on refresh are handled by the `rewrites` rule in `vercel.json`
-- Add your custom domain (`demo-goldenfreshcart.ibithun.com`) in **Vercel → Project → Settings → Domains**
-  - Then add a CNAME record at your DNS provider: `demo-goldenfreshcart` → `cname.vercel-dns.com`
+- Add your custom domain (`goldenfreshcart.ibithun.com`) in **Vercel → Project → Settings → Domains**
+  - Then add a CNAME record at your DNS provider: `goldenfreshcart` → `cname.vercel-dns.com`
 
 ### Railway (Backend)
 - Connect your GitHub repo to Railway → set root directory to `backend/GoldenFreshCart.API`
@@ -218,7 +218,7 @@ golden.grocery.cart/
 ### CORS
 After deploying, update `Program.cs` to allow your Vercel domain:
 ```csharp
-policy.WithOrigins("http://localhost:5173", "https://demo-goldenfreshcart.ibithun.com")
+policy.WithOrigins("http://localhost:5173", "https://goldenfreshcart.ibithun.com")
 ```
 
 ---
