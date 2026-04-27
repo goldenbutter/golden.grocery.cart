@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import CartSidebar from './components/cart/CartSidebar';
@@ -55,6 +56,9 @@ export default function App() {
         </main>
 
         <Footer />
+
+        {/* Vercel Web Analytics — collects page views and visitor stats in production */}
+        <Analytics />
       </div>
     </BrowserRouter>
   );
